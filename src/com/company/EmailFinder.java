@@ -49,7 +49,7 @@ class EmailFinder {
         Matcher matcher = defaultPattern.matcher(txt);
 
         while (matcher.find()) {
-            Address curr = new Address(matcher.group());
+            Address curr = new Address(matcher.group(1));
             map.put(curr.domain, map.getOrDefault(curr.domain, 0) + 1);
         }
 
@@ -69,7 +69,7 @@ class EmailFinder {
         Matcher matcher = pattern.matcher(txt);
 
         while (matcher.find()) {
-            matched.add(matcher.group());
+            matched.add(matcher.group(1));
         }
 
         return matched;
@@ -80,7 +80,7 @@ class EmailFinder {
         Matcher matcher = defaultPattern.matcher(txt);
 
         while (matcher.find()) {
-            Address curr = new Address(matcher.group());
+            Address curr = new Address(matcher.group(1));
             if (map.containsKey(curr.domain)) {
                 ArrayList<String> list = map.get(curr.domain);
                 list.add(curr.local);
@@ -100,14 +100,14 @@ class EmailFinder {
 
         Address(String add) {
             address = add;
-            local = firstMatch("([^@]*)@");
-            domain = firstMatch("@(.*)");
+            local = firstMatch("([^@]+)@");
+            domain = firstMatch("@(.+)");
         }
 
         private String firstMatch(String regex) {
             Matcher matcher = Pattern.compile(regex).matcher(address);
             matcher.find();
-            return matcher.group();
+            return matcher.group(1);
         }
     }
 
