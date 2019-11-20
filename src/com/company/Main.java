@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         String txt = readString(Paths.get("src/sample.txt"));
-        EmailCounter counter = new EmailCounter(txt);
-        System.out.println(counter.runCount());
+        EmailFinder counter = new EmailFinder(txt);
+        System.out.println(counter.count());
     }
 }
